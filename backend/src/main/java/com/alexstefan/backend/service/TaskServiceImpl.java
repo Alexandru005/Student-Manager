@@ -4,6 +4,7 @@ import com.alexstefan.backend.model.Task;
 import com.alexstefan.backend.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,15 @@ public class TaskServiceImpl implements TaskService{
 
     public Optional<Task> showTaskById(Long id){
         return taskRepository.findById(id);
+    }
+
+    public List<Task> showFilteredTasks(String status, String category, LocalDateTime dueTimeMin, LocalDateTime dueTimeMax){
+        if(dueTimeMin == null)
+            dueTimeMin = LocalDateTime.MIN;
+        if(dueTimeMax == null)
+            dueTimeMax = LocalDateTime.MIN;
+
+        return taskRepository.filterTasks(status, category, dueTimeMin, dueTimeMax);
     }
 
     public Task updateTask(Task newTask, Long idOldTask){
