@@ -69,3 +69,10 @@ export const GraduationIcon = make(
     <path d="M6 12v5c3 2 9 2 12 0v-5" />
   </>,
 );
+
+export const EyeIcon = make(
+  <>
+    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+    <circle cx="12" cy="12" r="3" />
+  </>,
+);

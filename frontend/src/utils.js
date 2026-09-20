@@ -46,6 +46,20 @@ export function formatDue(value) {
   });
 }
 
+/** Format lung pentru fereastra de detalii: "vineri, 25 septembrie 2026, 18:00" */
+export function formatDueLong(value) {
+  const d = parseDate(value);
+  if (!d) return '';
+  return d.toLocaleString('ro-RO', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
 export function isOverdue(task) {
   const d = parseDate(task.dueTime);
   return Boolean(d && d < new Date() && getStatus(task.status).key !== 'done');

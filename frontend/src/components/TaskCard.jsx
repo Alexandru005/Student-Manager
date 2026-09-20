@@ -1,8 +1,8 @@
 import { STATUSES } from '../constants';
 import { formatDue, getStatus, isOverdue } from '../utils';
-import { AlertIcon, CalendarIcon, CheckIcon, EditIcon, TagIcon, TrashIcon } from './Icons';
+import { AlertIcon, CalendarIcon, CheckIcon, EditIcon, EyeIcon, TagIcon, TrashIcon } from './Icons';
 
-export default function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
+export default function TaskCard({ task, onView, onEdit, onDelete, onStatusChange }) {
   const status = getStatus(task.status);
   const done = status.key === 'done';
   const overdue = isOverdue(task);
@@ -64,6 +64,15 @@ export default function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
         </select>
 
         <div className="task__actions">
+          <button
+            type="button"
+            className="icon-btn icon-btn--sm"
+            onClick={() => onView(task)}
+            aria-label={`Vezi detalii pentru ${task.title}`}
+            title="Vezi detalii"
+          >
+            <EyeIcon width={16} height={16} />
+          </button>
           <button
             type="button"
             className="icon-btn icon-btn--sm"

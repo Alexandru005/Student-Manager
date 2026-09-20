@@ -842,7 +842,10 @@ select {
 }
 
 .dialog {
+  display: flex;
+  flex-direction: column;
   width: min(560px, 100%);
+  max-height: calc(100dvh - 2rem);
   border: 1px solid var(--border-strong);
   border-radius: var(--r-panel);
   background: var(--bg);
@@ -877,8 +880,12 @@ select {
 
 .dialog__body {
   display: grid;
+  align-content: start;
   gap: 1rem;
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 1.1rem 1.3rem;
+  overflow-y: auto;
 }
 
 .dialog__text {
@@ -986,4 +993,62 @@ select {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- Vizualizare task ---------- */
+.detail__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.dialog__head {
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.detail__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.detail-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.detail-list dt {
+  margin-bottom: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.detail-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.detail__desc {
+  white-space: pre-wrap;
+}
+
+.detail__empty {
+  color: var(--muted);
+  font-style: italic;
 }

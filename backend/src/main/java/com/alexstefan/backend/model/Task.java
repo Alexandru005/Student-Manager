@@ -16,7 +16,7 @@ public class Task {
     @Column(nullable = false, length = 50)
     private String category;
 
-    @Column(length = 200)
+    @Column(length = 400)
     private String description;
 
     private String status;

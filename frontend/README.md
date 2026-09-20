@@ -20,6 +20,10 @@ Backend-ul trebuie să ruleze pe `http://localhost:8080` (CORS-ul din controller
 3. **Câmpurile din `Task`** — frontend-ul folosește: `id`, `title`, `description`, `category`, `status`, `dueTime`.
    Dacă la tine se numesc altfel, le redenumești în `src/components/TaskCard.jsx`, `TaskModal.jsx`, `src/utils.js` și `src/App.jsx`.
 
+## Vizualizare
+
+Ochiul de pe fiecare card deschide fereastra cu toate detaliile task-ului.
+
 ## Structură
 
 ```
@@ -28,7 +32,8 @@ src/
   constants.js      URL API + statusuri
   utils.js          date, statusuri, sortare
   hooks/useTheme.js dark / light, salvat în localStorage
-  components/       Header, ProgressStack, FilterBar, TaskCard, TaskModal, ConfirmDialog, Toasts, Icons
+  components/       Header, ProgressStack, FilterBar, TaskCard, TaskModal, TaskDetails,
+                    ConfirmDialog, Toasts, Icons
   index.css         toată stilizarea (paleta ta, cele două teme)
   App.jsx           starea aplicației și logica
 ```

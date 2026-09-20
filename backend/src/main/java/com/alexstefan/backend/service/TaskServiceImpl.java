@@ -30,9 +30,9 @@ public class TaskServiceImpl implements TaskService{
 
     public List<Task> showFilteredTasks(String status, String category, LocalDateTime dueTimeMin, LocalDateTime dueTimeMax){
         if(dueTimeMin == null)
-            dueTimeMin = LocalDateTime.MIN;
+            dueTimeMin = LocalDateTime.of(1900, 1, 1, 0, 0);
         if(dueTimeMax == null)
-            dueTimeMax = LocalDateTime.MIN;
+            dueTimeMax = LocalDateTime.of(2999, 12, 31, 23, 59);
 
         return taskRepository.filterTasks(status, category, dueTimeMin, dueTimeMax);
     }

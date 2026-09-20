@@ -9,6 +9,7 @@ import Header from './components/Header';
 import { AlertIcon, PlusIcon } from './components/Icons';
 import ProgressStack from './components/ProgressStack';
 import TaskCard from './components/TaskCard';
+import TaskDetails from './components/TaskDetails';
 import TaskModal from './components/TaskModal';
 import Toasts from './components/Toasts';
 
@@ -27,6 +28,7 @@ export default function App() {
 
   const [modal, setModal] = useState(null); // { task } — task = null pentru "Task nou"
   const [toDelete, setToDelete] = useState(null);
+  const [viewing, setViewing] = useState(null);
   const [dragOver, setDragOver] = useState(null);
 
   const [toasts, setToasts] = useState([]);
@@ -58,7 +60,10 @@ export default function App() {
           [...new Set(filtersActive ? [...prev, ...cats] : cats)].sort((a, b) => a.localeCompare(b, 'ro')),
         );
       } catch (e) {
-        if (id === requestId.current) setError(e.message);
+        if (id === requestId.current) {
+          setError(e.message);
+          if (!silent) setTasks([]); // nu lăsăm lista veche să pară rezultatul noului filtru
+        }
       } finally {
         if (id === requestId.current) setLoading(false);
       }
@@ -155,6 +160,7 @@ export default function App() {
 
   const closeModal = useCallback(() => setModal(null), []);
   const cancelDelete = useCallback(() => setToDelete(null), []);
+  const closeView = useCallback(() => setViewing(null), []);
 
   const noTasksAtAll = !loading && !error && tasks.length === 0 && !hasActive;
 
@@ -236,6 +242,7 @@ export default function App() {
                         <TaskCard
                           key={task.id}
                           task={task}
+                          onView={setViewing}
                           onEdit={(t) => setModal({ task: t })}
                           onDelete={setToDelete}
                           onStatusChange={handleStatusChange}
@@ -252,6 +259,16 @@ export default function App() {
 
       {modal && (
         <TaskModal task={modal.task} categories={categories} onClose={closeModal} onSave={handleSave} />
+      )}
+      {viewing && (
+        <TaskDetails
+          task={viewing}
+          onClose={closeView}
+          onEdit={(t) => {
+            setViewing(null);
+            setModal({ task: t });
+          }}
+        />
       )}
       {toDelete && <ConfirmDialog task={toDelete} onCancel={cancelDelete} onConfirm={handleDelete} />}
       <Toasts toasts={toasts} />
