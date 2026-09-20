@@ -3,17 +3,18 @@ import { STATUSES } from '../constants';
 import { getStatus, toApiDate, toInputValue } from '../utils';
 import { XIcon } from './Icons';
 
-export default function TaskModal({ task, categories, onClose, onSave }) {
+export default function TaskModal({ task, initial, categories, onClose, onSave }) {
   const isEdit = Boolean(task);
+  const source = task ?? initial; // `initial` = valori precompletate pentru un task nou (ex. propus de AI)
   const uid = useId();
   const titleRef = useRef(null);
 
   const [form, setForm] = useState(() => ({
-    title: task?.title ?? '',
-    description: task?.description ?? '',
-    category: task?.category ?? '',
-    status: task ? getStatus(task.status).value : STATUSES[0].value,
-    dueTime: toInputValue(task?.dueTime),
+    title: source?.title ?? '',
+    description: source?.description ?? '',
+    category: source?.category ?? '',
+    status: source ? getStatus(source.status).value : STATUSES[0].value,
+    dueTime: toInputValue(source?.dueTime),
   }));
   const [saving, setSaving] = useState(false);
   const [showErrors, setShowErrors] = useState(false);

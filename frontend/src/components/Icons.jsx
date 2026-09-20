@@ -76,3 +76,16 @@ export const EyeIcon = make(
     <circle cx="12" cy="12" r="3" />
   </>,
 );
+
+export const SparklesIcon = make(
+  <>
+    <path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3z" />
+    <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />
+  </>,
+);
+export const SendIcon = make(
+  <>
+    <path d="M22 2L11 13" />
+    <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+  </>,
+);

@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as api from './api';
 import { STATUSES } from './constants';
 import { useTheme } from './hooks/useTheme';
-import { byDueTime, getStatus } from './utils';
+import { byDueTime, getStatus, toApiDate } from './utils';
+import ChatWidget from './components/ChatWidget';
 import ConfirmDialog from './components/ConfirmDialog';
 import FilterBar from './components/FilterBar';
 import Header from './components/Header';
@@ -101,6 +102,7 @@ export default function App() {
 
   async function handleSave(payload) {
     const editing = modal?.task;
+    const onSaved = modal?.onSaved;
     try {
       if (editing) {
         await api.updateTask(editing.id, { ...editing, ...payload });
@@ -110,6 +112,7 @@ export default function App() {
         pushToast('Task adăugat');
       }
       setModal(null);
+      onSaved?.();
       loadTasks({ silent: true });
       return true;
     } catch (e) {
@@ -137,6 +140,25 @@ export default function App() {
       await api.deleteTask(toDelete.id);
       setToDelete(null);
       pushToast('Task șters');
+      loadTasks({ silent: true });
+      return true;
+    } catch (e) {
+      pushToast(e.message, 'error');
+      return false;
+    }
+  }
+
+  /** Salvează direct task-ul propus de asistentul AI. */
+  async function handleAiAdd(task) {
+    try {
+      await api.createTask({
+        title: task.title,
+        description: task.description,
+        category: task.category,
+        status: task.status,
+        dueTime: toApiDate(task.dueTime),
+      });
+      pushToast('Task adăugat');
       loadTasks({ silent: true });
       return true;
     } catch (e) {
@@ -258,7 +280,13 @@ export default function App() {
       </main>
 
       {modal && (
-        <TaskModal task={modal.task} categories={categories} onClose={closeModal} onSave={handleSave} />
+        <TaskModal
+          task={modal.task}
+          initial={modal.initial}
+          categories={categories}
+          onClose={closeModal}
+          onSave={handleSave}
+        />
       )}
       {viewing && (
         <TaskDetails
@@ -271,6 +299,10 @@ export default function App() {
         />
       )}
       {toDelete && <ConfirmDialog task={toDelete} onCancel={cancelDelete} onConfirm={handleDelete} />}
+      <ChatWidget
+        onAdd={handleAiAdd}
+        onEdit={(task, onSaved) => setModal({ task: null, initial: task, onSaved })}
+      />
       <Toasts toasts={toasts} />
     </>
   );

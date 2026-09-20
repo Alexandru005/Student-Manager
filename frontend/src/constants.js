@@ -10,3 +10,20 @@ export const STATUSES = [
   { key: 'inprogress', value: 'IN_PROGRESS', label: 'În lucru' },
   { key: 'done', value: 'DONE', label: 'Finalizat' },
 ];
+
+// ---------------------------------------------------------------------------
+// Asistentul AI (butonul rotund din colțul dreapta-jos)
+// ---------------------------------------------------------------------------
+
+// Ruta din AIController: @RequestMapping("/ai") + @PostMapping("/get-response")
+export const AI_ENDPOINT = '/ai/get-response';
+
+// Numele câmpului din AITaskRequest (record AITaskRequest(String userPrompt))
+export const AI_REQUEST_FIELD = 'userPrompt';
+
+export const AI_MAX_CHARS = 1000;
+
+// Prompt-ul din backend nu îi spune modelului ce dată e azi, deci "mâine" sau "vineri" nu pot fi calculate.
+// Cât timp e true, frontend-ul adaugă data curentă la începutul mesajului trimis.
+// Când o pui în prompt-ul din backend, poți pune false.
+export const AI_SEND_DATE_CONTEXT = true;
