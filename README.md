@@ -1,4 +1,4 @@
-# 🎓 Student-Manager
+# 🎓 Student Manager
 
 > *Easy to use, easy to get. Helping students manage their time and tasks better.*
 
@@ -33,24 +33,28 @@ A high-level overview of the project's architecture:
 
 ```text
 📦 Student-Manager
-├── 📂 backend                          # Spring Boot application
-│   ├── 📂 src/main/java/.../backend    # Main Java source code
-│   │   ├── 📂 controller               # REST API endpoints
-│   │   ├── 📂 dto                      # Data Transfer Objects
-│   │   ├── 📂 model                    # Database entities
-│   │   ├── 📂 repository               # Database access layer (Spring Data JPA)
-│   │   └── 📂 service                  # Business logic
-│   ├── 📂 src/main/resources           # Static files & configuration (application.properties)
-│   └── 📄 pom.xml                      # Maven dependencies
-├── 📂 frontend                         # React & Vite application
-│   ├── 📂 public                       # Static assets
-│   ├── 📂 src                          
-│   │   ├── 📂 components               # Reusable UI React components
-│   │   └── 📂 hooks                    # Custom React hooks
-│   ├── 📄 package.json                 # Frontend dependencies and scripts
-│   └── 📄 vite.config.js               # Vite configuration
-└── 📂 website_screenshots              # Images used for documentation
+├── 📂 backend                              # Spring Boot application
+│   ├── 📂 src/main/java/.../backend
+│   │   ├── 📂 controller                   # REST API endpoints
+│   │   ├── 📂 dto                          # Data Transfer Objects
+│   │   ├── 📂 model                        # Database entities
+│   │   ├── 📂 repository                   # Database access layer (Spring Data JPA)
+│   │   └── 📂 service                      # Business logic
+│   ├── 📂 src/main/resources               # Configuration (application.properties)
+│   ├── 📂 src/test                         # Tests
+│   └── 📄 pom.xml                          # Maven dependencies
+├── 📂 frontend                             # React & Vite application
+│   ├── 📂 public                           # Static assets
+│   ├── 📂 src
+│   │   ├── 📂 components                   # Reusable UI React components
+│   │   └── 📂 hooks                        # Custom React hooks
+│   ├── 📄 package.json                     # Frontend dependencies and scripts
+│   └── 📄 vite.config.js                   # Vite configuration
+├── 📂 website_screenshots                  # Images used for documentation
+├── 📄 docker-compose.yml                   # Database container setup
+└── 📄 .env.example                         # Environment variables template
 ```
+
 ---
 
 ## 🛠️ Tech Stack
@@ -79,3 +83,57 @@ A high-level overview of the project's architecture:
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/) (running)
+- Java 25
+- Node.js and npm
+- A [Gemini API key](https://aistudio.google.com/app/apikey) for the AI feature
+
+### Run the app
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/<your-username>/Student-Manager.git
+   cd Student-Manager
+   ```
+
+2. **Create your `.env` file** in the root folder, based on `.env.example`
+   ```bash
+   cp .env.example .env
+   ```
+   Then fill in the values (database credentials and your Gemini API key).
+
+3. **Start the database**
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Start the backend**: run the main application class from your IDE
+   (`backend/src/main/java/com/alexstefan/backend`), or from the terminal:
+   ```bash
+   cd backend
+   ./mvnw spring-boot:run
+   ```
+
+5. **Start the frontend** (in a new terminal)
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+6. **Open the app** at http://localhost:5173
+
+Now you're good to go: organize your tasks and stay on top of your deadlines! 📚
+
+---
+
+## 👤 Author
+
+**Alexandru-Ștefan Ștefănescu** - [GitHub](https://github.com/<your-username>)
